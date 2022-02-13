@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import MainBox from './components/MainBox/MainBox';
+import { initializeData } from './helpers/initializeData';
+import { fakeData, presetRequirementsLow } from './helpers/fakeData';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [initializedData, setInitializedData] = useState();
+
+
+	useEffect(() => {
+		const { listPresets, listCategories } = initializeData(
+			fakeData,
+			presetRequirementsLow
+		);
+    setInitializedData({ listCategories, listPresets });
+	}, []);
+
+	return (
+		<MainBox initializedData={initializedData}  />
+	);
 }
 
 export default App;
